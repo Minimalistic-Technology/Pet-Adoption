@@ -2,25 +2,43 @@
 import { ArrowLeft, Eye, EyeOff, Heart } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React,{useState} from "react";
+import { useAuth } from "../Context/AuthContext";
 
 const page: React.FC = () => {
+const router = useRouter();
 
 const [email,setEmail] = useState("");
 const [password,setPassword] = useState
-("")
-const [showPassword,setShowPassword] = useState(false)
+("");
+const [showPassword,setShowPassword] = useState(false);
+ 
+const {login}  = useAuth();
 
 const habdleSubmit = (e: { preventDefault: () => void; }) => {
           e.preventDefault();
-          alert("Login successfull");
+
+        const mockUser = {
+          fullName: "Vyom",
+          phoneNumber: "1234567890",
+          email: email,
+          password: password,
+          gender: "male",
+          city: "cityame ",
+          country: "Bharat",
+          profilePicture: undefined,          
+        };
+
+        login(mockUser);
+        
+        alert("Login successfull");
           setPassword("");
           setEmail("");
-
+        router.push("/") ;
 }
 
-const  router = useRouter();
 
   return (
+   
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50  flex items-center justify-center p-6">
       <div className="w-full max-w-lg">
         <button className="fixed top-6 left-6 p-2 rounded-xl">
@@ -81,6 +99,7 @@ const  router = useRouter();
             <button
               className="w-full text-center mt-4  bg-amber-500
             rounded-xl py-4 text-xl text-white"
+    
             type="submit"
             >
               Submit
@@ -89,6 +108,7 @@ const  router = useRouter();
         </div>
       </div>
     </div>
+ 
   );
 };
 

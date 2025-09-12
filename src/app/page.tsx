@@ -15,12 +15,11 @@ import {
   Trash2,
   PawPrint,
 } from "lucide-react";
-import Navbar from "./components/Navbar";
 import StatsGrid from "./components/DashboardStats";
 import RecentAdoptions from "./components/RecentAdoption";
-import QuickActions from "./components/QuickActions";
-import Signup from "./Signup/page";
 import { AuthProvider } from "./Context/AuthContext";
+import Navbar from "./components/Navbar";
+import AdopterStories from "./components/AdopterStories";
 
 const PetAdoptionDashboard = () => {
   /* 
@@ -32,68 +31,6 @@ const PetAdoptionDashboard = () => {
   */
   const [searchTerm, setSearchTerm] = useState("");
 
-  const recentAdoptions = [
-    {
-      id: 1,
-      petName: "Buddy",
-      petType: "Golden Retriever",
-      adopterName: "Sarah Johnson",
-      date: "2024-09-08",
-      status: "completed",
-      image:
-        "https://images.pexels.com/photos/1108099/pexels-photo-1108099.jpeg?auto=compress&cs=tinysrgb&w=100",
-    },
-    {
-      id: 2,
-      petName: "Whiskers",
-      petType: "Persian Cat",
-      adopterName: "Mike Chen",
-      date: "2024-09-07",
-      status: "completed",
-      image:
-        "https://images.pexels.com/photos/1170986/pexels-photo-1170986.jpeg?auto=compress&cs=tinysrgb&w=100",
-    },
-    {
-      id: 3,
-      petName: "Luna",
-      petType: "Labrador Mix",
-      adopterName: "Emily Davis",
-      date: "2024-09-06",
-      status: "completed",
-      image:
-        "https://images.pexels.com/photos/1851164/pexels-photo-1851164.jpeg?auto=compress&cs=tinysrgb&w=100",
-    },
-    {
-      id: 4,
-      petName: "Mittens",
-      petType: "Tabby Cat",
-      adopterName: "John Smith",
-      date: "2024-09-05",
-      status: "completed",
-      image:
-        "https://images.pexels.com/photos/1741205/pexels-photo-1741205.jpeg?auto=compress&cs=tinysrgb&w=100",
-    },
-    {
-      id: 5,
-      petName: "Rex",
-      petType: "Border Collie",
-      adopterName: "Lisa Wilson",
-      date: "2024-09-04",
-      status: "completed",
-      image:
-        "https://images.pexels.com/photos/825949/pexels-photo-825949.jpeg?auto=compress&cs=tinysrgb&w=100",
-    },
-    {
-      id: 6,
-      petName: "Shadow",
-      petType: "British Shorthair",
-      adopterName: "Tom Anderson",
-      date: "2024-09-03",
-      status: "completed",
-      image:
-        "https://images.pexels.com/photos/774731/pexels-photo-774731.jpeg?auto=compress&cs=tinysrgb&w=100",
-    },
-  ];
 
   const availablePets = [
     {
@@ -261,15 +198,12 @@ Case  – User clicks "Dogs"
   };
 
   return (
-    <AuthProvider>
+    <>
       <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
         {/* Background Paw Print Icon */}
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none">
           <PawPrint className="w-96 h-96 text-orange-400/10 rotate-12" />
         </div>
-
-        {/* Header */}
-        <Navbar />
 
         <div className="max-w-9xl mx-auto px-6 py-8">
           {/* Stats Grid */}
@@ -398,22 +332,20 @@ Case  – User clicks "Dogs"
               <PawPrint className="w-96 h-96 text-orange-400/10 rotate-12" />
             </div>
 
-            <div className="absolute top-1/2 left-150 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none">
+            <div className="absolute top-1/2 left-100 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none">
               <PawPrint className="w-96 h-96 text-orange-400/10 rotate-12" />
             </div>
 
             {/* Sidebar */}
             <div className="xl:col-span-1 space-y-6">
-              <RecentAdoptions
-                recentAdoptions={recentAdoptions}
-                renderStatusBadge={renderStatusBadge}
-              />
+                <AdopterStories />
             </div>
           </div>
         </div>
       </div>
-    </AuthProvider>
+    </>
   );
 };
 
 export default PetAdoptionDashboard;
+

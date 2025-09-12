@@ -1,8 +1,9 @@
+"use client"
 import { createContext, ReactNode, useContext, useState } from "react";
 
 interface User {
   fullName: String;
-  phoneNumber: Number;
+  phoneNumber: String;
   email: String;
   password: String;
   gender: String;
@@ -47,8 +48,7 @@ export const AuthProvider : React.FC<AuthProviderProps> = ({children}) => {
              setUser(userData)
 
      }
-     
-
+ 
      const logout = () => {
        setIsAuthenticated(false);
        setUser(null);

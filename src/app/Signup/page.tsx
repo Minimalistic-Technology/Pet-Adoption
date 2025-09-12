@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { Heart, Eye, EyeOff, ArrowLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useAuth } from "../Context/AuthContext";
 
 const SignupPage: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -18,7 +19,7 @@ const SignupPage: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
   const router = useRouter()
 
-  
+const {user,login}  = useAuth()
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -39,6 +40,21 @@ const SignupPage: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+     const mockUser = {
+       fullName: formData.fullName,
+       phoneNumber: formData.phoneNumber,
+       email: formData.email,
+       password: formData.password,
+       gender: formData.gender,
+       city: formData.city,
+       country: formData.country,
+       profilePicture: undefined,
+       isAdmin : false,
+     };
+
+     login(mockUser);
+
     console.log("Form submitted:", formData);
     alert("SIgnup successfulL");
       setFormData({
@@ -51,6 +67,10 @@ const SignupPage: React.FC = () => {
        country: "",
        // isPetParent: "",
      });
+
+
+      router.push("/");
+
 
   };
 
@@ -206,38 +226,6 @@ const SignupPage: React.FC = () => {
               />
             </div>
 
-            {/* Pet Parent Question */}
-            {/* <div>
-              <p className="text-gray-700 font-medium mb-3">
-                Are you a Pet Parent?
-              </p>
-              <div className="flex space-x-6">
-                <label className="flex items-center cursor-pointer">
-                  <input
-                    type="radio"
-                    name="isPetParent"
-                    value="yes"
-                    checked={formData.isPetParent === "yes"}
-                    onChange={() => handleRadioChange("yes")}
-                    className="w-4 h-4 text-blue-500 border-gray-300 focus:ring-blue-500 focus:ring-2"
-                  />
-                  <span className="ml-2 text-gray-700">Yes</span>
-                </label>
-                <label className="flex items-center cursor-pointer">
-                  <input
-                    type="radio"
-                    name="isPetParent"
-                    value="no"
-                    checked={formData.isPetParent === "no"}
-                    onChange={() => handleRadioChange("no")}
-                    className="w-4 h-4 text-blue-500 border-gray-300 focus:ring-blue-500 focus:ring-2"
-                  />
-                  <span className="ml-2 text-gray-700">No</span>
-                </label>
-              </div>
-            </div> */}
-
-            {/* Submit Button */}
             <button
               type="submit"
               className="w-full bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 text-white py-4 rounded-xl font-semibold text-lg transition-all duration-200 transform hover:-translate-y-0.5 shadow-lg hover:shadow-xl"
