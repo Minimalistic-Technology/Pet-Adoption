@@ -1,0 +1,642 @@
+// "use client"
+// import React, { useState } from "react";
+// import {
+//   Heart,
+//   Dog,
+//   Cat,
+//   Users,
+//   TrendingUp,
+//   Calendar,
+//   MapPin,
+//   Search,
+//   Plus,
+//   Eye,
+//   Edit,
+//   Trash2,
+// } from "lucide-react";
+
+// const PetAdoptionDashboard = () => {
+//   /* 
+//        This state tracks the currently selected filter for pet types (e.g., all, dog, cat). When updated, it triggers a re-render of the component
+  
+//   */
+//   const [activeFilter, setActiveFilter] = useState("all");
+//   /*  
+//        This state tracks the currently selected filter for pet types (e.g., all, dog, cat). When updated, it triggers a re-render of the component
+//   */
+//   const [searchTerm, setSearchTerm] = useState("");
+
+//   // stats Mock data
+//   /*  Arrey of stats objects */
+//   const stats = [
+//     {
+//       title: "Total Pets Available",
+//       value: "247",
+//       change: "+12%",
+//       icon: Heart,
+//       bgColor: "from-pink-500 to-rose-500",
+//       iconBg: "bg-pink-100",
+//       iconColor: "text-pink-600",
+//     },
+//     {
+//       title: "Successful Adoptions",
+//       value: "1,834",
+//       change: "+8%",
+//       icon: Users,
+//       bgColor: "from-emerald-500 to-green-500",
+//       iconBg: "bg-emerald-100",
+//       iconColor: "text-emerald-600",
+//     },
+//     {
+//       title: "Dogs Available",
+//       value: "156",
+//       change: "+5%",
+//       icon: Dog,
+//       bgColor: "from-blue-500 to-indigo-500",
+//       iconBg: "bg-blue-100",
+//       iconColor: "text-blue-600",
+//     },
+//     {
+//       title: "Cats Available",
+//       value: "91",
+//       change: "+15%",
+//       icon: Cat,
+//       bgColor: "from-purple-500 to-violet-500",
+//       iconBg: "bg-purple-100",
+//       iconColor: "text-purple-600",
+//     },
+//   ];
+
+//   const recentAdoptions = [
+//     {
+//       id: 1,
+//       petName: "Buddy",
+//       petType: "Golden Retriever",
+//       adopterName: "Sarah Johnson",
+//       date: "2024-09-08",
+//       status: "completed",
+//       image:
+//         "https://images.pexels.com/photos/1108099/pexels-photo-1108099.jpeg?auto=compress&cs=tinysrgb&w=100",
+//     },
+//     {
+//       id: 2,
+//       petName: "Whiskers",
+//       petType: "Persian Cat",
+//       adopterName: "Mike Chen",
+//       date: "2024-09-07",
+//       status: "pending",
+//       image:
+//         "https://images.pexels.com/photos/1170986/pexels-photo-1170986.jpeg?auto=compress&cs=tinysrgb&w=100",
+//     },
+//     {
+//       id: 3,
+//       petName: "Luna",
+//       petType: "Labrador Mix",
+//       adopterName: "Emily Davis",
+//       date: "2024-09-06",
+//       status: "completed",
+//       image:
+//         "https://images.pexels.com/photos/1851164/pexels-photo-1851164.jpeg?auto=compress&cs=tinysrgb&w=100",
+//     },
+//     {
+//       id: 4,
+//       petName: "Mittens",
+//       petType: "Tabby Cat",
+//       adopterName: "John Smith",
+//       date: "2024-09-05",
+//       status: "in-review",
+//       image:
+//         "https://images.pexels.com/photos/1741205/pexels-photo-1741205.jpeg?auto=compress&cs=tinysrgb&w=100",
+//     },
+//     {
+//       id: 5,
+//       petName: "Rex",
+//       petType: "Border Collie",
+//       adopterName: "Lisa Wilson",
+//       date: "2024-09-04",
+//       status: "completed",
+//       image:
+//         "https://images.pexels.com/photos/825949/pexels-photo-825949.jpeg?auto=compress&cs=tinysrgb&w=100",
+//     },
+//     {
+//       id: 6,
+//       petName: "Shadow",
+//       petType: "British Shorthair",
+//       adopterName: "Tom Anderson",
+//       date: "2024-09-03",
+//       status: "pending",
+//       image:
+//         "https://images.pexels.com/photos/774731/pexels-photo-774731.jpeg?auto=compress&cs=tinysrgb&w=100",
+//     },
+//   ];
+
+//   const availablePets = [
+//     {
+//       id: 1,
+//       name: "Max",
+//       breed: "German Shepherd",
+//       age: "2 years",
+//       gender: "Male",
+//       location: "New York",
+//       status: "available",
+//       image:
+//         "https://images.pexels.com/photos/551628/pexels-photo-551628.jpeg?auto=compress&cs=tinysrgb&w=300",
+//       type: "dog",
+//     },
+//     {
+//       id: 2,
+//       name: "Bella",
+//       breed: "Siamese Cat",
+//       age: "1.5 years",
+//       gender: "Female",
+//       location: "California",
+//       status: "available",
+//       image:
+//         "https://images.pexels.com/photos/1276553/pexels-photo-1276553.jpeg?auto=compress&cs=tinysrgb&w=300",
+//       type: "cat",
+//     },
+//     {
+//       id: 3,
+//       name: "Charlie",
+//       breed: "Beagle",
+//       age: "3 years",
+//       gender: "Male",
+//       location: "Texas",
+//       status: "pending",
+//       image:
+//         "https://images.pexels.com/photos/1805164/pexels-photo-1805164.jpeg?auto=compress&cs=tinysrgb&w=300",
+//       type: "dog",
+//     },
+//     {
+//       id: 4,
+//       name: "Daisy",
+//       breed: "Maine Coon",
+//       age: "4 years",
+//       gender: "Female",
+//       location: "Florida",
+//       status: "available",
+//       image:
+//         "https://images.pexels.com/photos/1643457/pexels-photo-1643457.jpeg?auto=compress&cs=tinysrgb&w=300",
+//       type: "cat",
+//     },
+//     {
+//       id: 5,
+//       name: "Rocky",
+//       breed: "Bulldog",
+//       age: "3 years",
+//       gender: "Male",
+//       location: "Nevada",
+//       status: "available",
+//       image:
+//         "https://images.pexels.com/photos/1629781/pexels-photo-1629781.jpeg?auto=compress&cs=tinysrgb&w=300",
+//       type: "dog",
+//     },
+//     {
+//       id: 6,
+//       name: "Mia",
+//       breed: "Russian Blue",
+//       age: "2 years",
+//       gender: "Female",
+//       location: "Oregon",
+//       status: "pending",
+//       image:
+//         "https://images.pexels.com/photos/1404819/pexels-photo-1404819.jpeg?auto=compress&cs=tinysrgb&w=300",
+//       type: "cat",
+//     },
+//   ];
+
+//   /* 
+
+// The filter method iterates over each pet in availablePets.
+
+// matchesFilter: Evaluates to true if either:
+
+//       activeFilter is "all" (no type restriction), or
+//       The pet’s type matches activeFilter (e.g., pet.type === "dog" when activeFilter === "dog").
+
+// matchesSearch: Evaluates to true if either:
+
+//       The pet’s breed (lowercased) includes the searchTerm (lowercased). This makes the search case-insensitive.
+
+// The return matchesFilter && matchesSearch ensures a pet is included only if it satisfies both conditions.
+
+// Example: If filter is "dog" and search is "Beagle", only dogs with "Beagle" in their breed show up.
+
+// Case  – User clicks "Dogs"
+
+//         setActiveFilter("dog") updates state.
+
+//         React re-renders.
+
+//         Now matchesFilter is true only for pets with type: "dog".
+
+//         matchesSearch is still true for all breeds (empty search).
+//         ✅ Result: Only dogs are shown.
+//    */
+//   const filteredPets = availablePets.filter((pet) => {
+//     const matchesFilter = activeFilter === "all" || pet.type === activeFilter;
+//     const matchesSearch = pet.breed
+//       .toLowerCase()
+//       .includes(searchTerm.toLowerCase());
+//     return matchesFilter && matchesSearch;
+//   });
+
+//   const renderStatCard = (stat, index) => {
+//     const IconComponent = stat.icon;
+//     const isAdoptions = stat.title === "Successful Adoptions";
+
+//     return (
+//       <div
+//         key={index}
+//         className="group relative bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-0.5 border border-gray-100 overflow-hidden"
+//       >
+//         <div
+//           className={`absolute inset-0 bg-gradient-to-br ${stat.bgColor} opacity-0 group-hover:opacity-5 transition-opacity duration-300`}
+//         ></div>
+//         <div className="relative flex items-center justify-between">
+//           <div className="flex-1">
+//             <p className="text-sm font-medium text-gray-600 mb-2">
+//               {stat.title}
+//             </p>
+//             <p className="text-3xl font-bold text-gray-900 mb-3">
+//               {stat.value}
+//             </p>
+//             <div className="flex items-center">
+//               <div className={`flex items-center ${isAdoptions ? "bg-green-50" : "bg-red-50"} px-3 py-1 rounded-full`}>
+//                 <TrendingUp
+//                   className={`h-4 w-4 ${
+//                     isAdoptions ? "text-green-600" : "text-red-600"
+//                   } mr-1`}
+//                 />
+//                 <span
+//                   className={`text-sm font-semibold ${
+//                     isAdoptions ? "text-green-600" : "text-red-600"
+//                   }`}
+//                 >
+//                   {stat.change}
+//                 </span>
+//               </div>
+//               <span className="text-sm text-gray-500 ml-2">vs last month</span>
+//             </div>
+//           </div>
+//           <div
+//             className={`${stat.iconBg} p-4 rounded-xl group-hover:scale-105 transition-transform duration-300`}
+//           >
+//             <IconComponent className={`h-7 w-7 ${stat.iconColor}`} />
+//           </div>
+//         </div>
+//       </div>
+//     );
+//   };
+
+//   const renderStatusBadge = (status) => {
+//     const statusConfig = {
+//       completed: "bg-emerald-100 text-emerald-800 border-emerald-200",
+//       pending: "bg-amber-100 text-amber-800 border-amber-200",
+//       available: "bg-green-100 text-green-800 border-green-200",
+//     };
+
+//     const config =
+//       statusConfig[status] || "bg-gray-100 text-gray-800 border-gray-200";
+//     const label = status
+//       .replace("-", " ")
+//       .replace(/\b\w/g, (l) => l.toUpperCase());
+
+//     return (
+//       <span
+//         className={`px-3 py-1 rounded-full text-xs font-medium border ${config}`}
+//       >
+//         {label}
+//       </span>
+//     );
+//   };
+
+//   /* 
+//         User clicks "Dogs" button.
+
+//         setActiveFilter("dog") is called.
+
+//         React updates activeFilter to "dog".
+
+//         The component re-renders, recomputing filteredPets to include only pets with type: "dog" (and matching searchTerm, if any).
+
+//         The UI updates to show only dog cards.
+
+
+//         code : filter = "dog";
+
+//                 filter.charAt(0).toUpperCase(); // "D"
+//                 filter.slice(1); // "og"
+
+//                 label = "D" + "og" + "s"; // "Dogs"
+
+        
+//   */
+//   const renderFilterButton = (filter) => {
+//     /*  It compares the current state (activeFilter) with the button’s filter value.
+//        If they’re the same → true  
+//  */
+//     const isActive = activeFilter === filter;
+//     const label =
+//       filter === "all"
+//         ? "All Pets"
+//         : filter.charAt(0).toUpperCase() + filter.slice(1) + "s";
+
+//     return (
+//       <button
+//         key={filter}
+//         onClick={() => setActiveFilter(filter)}
+//         className={`px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ${
+//           isActive
+//             ? "bg-gradient-to-r from-blue-500 to-indigo-500 text-white shadow-md shadow-blue-500/25"
+//             : "bg-white text-gray-700 border border-gray-200 hover:border-gray-300 hover:shadow-sm"
+//         }`}
+//       >
+//         {label}
+//       </button>
+//     );
+//   };
+
+//   return (
+//     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+//       {/* Header */}
+//       <div className="bg-white/80 backdrop-blur-sm border-b border-gray-200 sticky top-0 z-10">
+//         <div className="max-w-9xl mx-auto px-6 py-4">
+//           <div className="flex items-center justify-between">
+//             <div className="flex items-center space-x-4">
+//               <div className="bg-gradient-to-r from-orange-500 to-pink-500 p-3 rounded-xl">
+//                 <Heart className="h-7 w-7 text-white" />
+//               </div>
+//               {/* <div> */}
+//               <h1 className="text-3xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
+//                 Pet Adoption Dashboard
+//               </h1>
+
+//               {/* </div> */}
+//             </div>
+//             <div className="flex space-x-3">
+//               <button className="bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 text-white px-6 py-3 rounded-xl flex items-center shadow-md hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5">
+//                 <Heart className="h-5 w-5 mr-2" />
+//                 Pets
+//               </button>
+//               <button className="bg-gradient-to-r from-purple-500 to-violet-500 hover:from-purple-600 hover:to-violet-600 text-white px-6 py-3 rounded-xl flex items-center shadow-md hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5">
+//                 <Plus className="h-5 w-5 mr-2" />
+//                 Pet Services
+//               </button>
+//             </div>
+//           </div>
+//         </div>
+//       </div>
+
+//       <div className="max-w-9xl mx-auto px-6 py-8">
+//         {/* Stats Grid */}
+//         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mb-8">
+//           {stats.map((stat, index) => renderStatCard(stat, index))}
+//         </div>
+
+//         <div className="grid grid-cols-1 xl:grid-cols-4 gap-8">
+//           {/* Available Pets Section */}
+//           <div className="xl:col-span-3">
+//             <div className="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden">
+//               <div className="p-6 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white">
+//                 <div className="flex items-center justify-between mb-6">
+//                   <h2 className="text-2xl font-bold text-gray-900">
+//                     Available Pets
+//                   </h2>
+//                   <div className="flex items-center space-x-3 text-base text-gray-600">
+//                     <span>{filteredPets.length} pets found</span>
+//                   </div>
+//                 </div>
+
+//                 {/* Filters and Search */}
+//                 {/* Flow :  
+                
+//                    User types "Max" in the input.
+
+//                     onChange fires, calling setSearchTerm("Max").
+//                     React updates searchTerm to "Max".
+
+//                     The component re-renders, recomputing filteredPets to include only pets whose name or breed contains "Max" (case-insensitive) and matches the current activeFilter.
+
+//                     The UI updates to show matching pet cards. */}
+//                 <div className="flex flex-col lg:flex-row gap-4">
+//                   <div className="relative flex-1">
+//                     <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
+//                     <input
+//                       type="text"
+//                       placeholder="Search pets by name or breed..."
+//                       value={searchTerm}
+//                       onChange={(e) => setSearchTerm(e.target.value)}
+//                       className="pl-12 pr-4 py-3 border border-gray-200 rounded-xl w-full focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-white shadow-sm text-base"
+//                     />
+//                   </div>
+//                   <div className="flex space-x-3">
+//                     {["all", "dog", "cat"].map((filter) =>
+//                       renderFilterButton(filter)
+//                     )}
+//                   </div>
+//                 </div>
+//               </div>
+
+//               <div className="p-6">
+//                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+//                   {filteredPets.map((pet) => (
+//                     <div
+//                       key={pet.id}
+//                       className="group bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+//                     >
+//                       <div className="relative h-48 overflow-hidden">
+//                         <img
+//                           src={pet.image}
+//                           alt={pet.name}
+//                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+//                         />
+//                         <div className="absolute top-3 right-3">
+//                           {renderStatusBadge(pet.status)}
+//                         </div>
+//                         <div className="absolute top-3 left-3">
+//                           <button className="bg-white/90 backdrop-blur-sm p-2 rounded-full hover:bg-white transition-colors">
+//                             <Heart className="h-4 w-4 text-gray-600 hover:text-red-500 transition-colors" />
+//                           </button>
+//                         </div>
+//                       </div>
+
+//                       <div className="p-5">
+//                         <div className="flex items-start justify-between mb-3">
+//                           <div>
+//                             <h3 className="font-bold text-lg text-gray-900 mb-1">
+//                               {pet.name}
+//                             </h3>
+//                             <p className="text-gray-600 text-base font-medium">
+//                               {pet.breed}
+//                             </p>
+//                           </div>
+//                           <div className="flex space-x-1 opacity-0 group-hover:opacity-100 transition-opacity">
+//                             <button className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
+//                               <Eye className="h-4 w-4 text-gray-500" />
+//                             </button>
+//                           </div>
+//                         </div>
+
+//                         <div className="space-y-2 text-sm text-gray-600 mb-4">
+//                           <div className="flex items-center">
+//                             <Calendar className="h-4 w-4 mr-2 text-gray-400" />
+//                             <span>
+//                               {pet.age} • {pet.gender}
+//                             </span>
+//                           </div>
+//                           <div className="flex items-center">
+//                             <MapPin className="h-4 w-4 mr-2 text-gray-400" />
+//                             <span>{pet.location}</span>
+//                           </div>
+//                         </div>
+
+//                         <button className="w-full bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 text-white py-3 rounded-xl text-base font-medium transition-all duration-200 transform hover:-translate-y-0.5 shadow-md hover:shadow-lg">
+//                           View Details
+//                         </button>
+//                       </div>
+//                     </div>
+//                   ))}
+//                 </div>
+
+//                 {filteredPets.length === 0 && (
+//                   <div className="text-center py-12">
+//                     <div className="bg-gray-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+//                       <Search className="h-8 w-8 text-gray-400" />
+//                     </div>
+//                     <p className="text-gray-500 text-lg">
+//                       No pets found matching your criteria
+//                     </p>
+//                     <p className="text-gray-400 text-base mt-1">
+//                       Try adjusting your search or filters
+//                     </p>
+//                   </div>
+//                 )}
+//               </div>
+//             </div>
+//           </div>
+
+//           {/* Sidebar */}
+//           {/* <div className="xl:col-span-1 space-y-6">
+//             <div className="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden">
+//               <div className="p-5 border-b border-gray-100 bg-gradient-to-r from-green-50 to-emerald-50">
+//                 <h2 className="text-xl font-bold text-gray-900 flex items-center">
+//                   <div className="bg-green-100 p-2.5 rounded-xl mr-3">
+//                     <Heart className="h-5 w-5 text-green-600" />
+//                   </div>
+//                   Recent Adoptions
+//                 </h2>
+//               </div>
+//               <div className="p-5">
+//                 <div className="space-y-4">
+//                   {recentAdoptions.map((adoption) => (
+//                     <div
+//                       key={adoption.id}
+//                       className="flex items-center space-x-3 p-3 hover:bg-gray-50 rounded-xl transition-colors group"
+//                     >
+//                       <img
+//                         src={adoption.image}
+//                         alt={adoption.petName}
+//                         className="w-12 h-12 rounded-full object-cover border-2 border-gray-200 group-hover:border-gray-300 transition-colors"
+//                       />
+//                       <div className="flex-1 min-w-0">
+//                         <p className="font-semibold text-base text-gray-900 truncate">
+//                           {adoption.petName}
+//                         </p>
+//                         <p className="text-sm text-gray-600 truncate">
+//                           {adoption.petType}
+//                         </p>
+//                         <p className="text-xs text-gray-500">
+//                           Adopted by {adoption.adopterName}
+//                         </p>
+//                       </div>
+//                       <div className="text-right">
+//                         {renderStatusBadge(adoption.status)}
+//                         <p className="text-xs text-gray-500 mt-1">
+//                           {adoption.date}
+//                         </p>
+//                       </div>
+//                     </div>
+//                   ))}
+//                 </div>
+//               </div>
+//             </div>
+
+//             <div className="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden">
+//               <div className="p-5 border-b border-gray-100 bg-gradient-to-r from-blue-50 to-indigo-50">
+//                 <h2 className="text-xl font-bold text-gray-900 flex items-center">
+//                   <div className="bg-blue-100 p-2.5 rounded-xl mr-3">
+//                     <TrendingUp className="h-5 w-5 text-blue-600" />
+//                   </div>
+//                   Quick Actions
+//                 </h2>
+//               </div>
+//               <div className="p-5">
+//                 <div className="space-y-3">
+//                   <button className="w-full flex items-center px-4 py-4 text-left bg-gradient-to-r from-blue-50 to-indigo-50 hover:from-blue-100 hover:to-indigo-100 rounded-xl transition-all duration-200 group border border-blue-100">
+//                     <div className="bg-blue-500 p-2.5 rounded-xl mr-4 group-hover:scale-105 transition-transform">
+//                       <Plus className="h-5 w-5 text-white" />
+//                     </div>
+//                     <div>
+//                       <span className="text-blue-700 font-semibold text-base block">
+//                         Add New Pet
+//                       </span>
+//                       <span className="text-blue-600 text-sm">
+//                         Register a new pet for adoption
+//                       </span>
+//                     </div>
+//                   </button>
+
+//                   <button className="w-full flex items-center px-4 py-4 text-left bg-gradient-to-r from-green-50 to-emerald-50 hover:from-green-100 hover:to-emerald-100 rounded-xl transition-all duration-200 group border border-green-100">
+//                     <div className="bg-green-500 p-2.5 rounded-xl mr-4 group-hover:scale-105 transition-transform">
+//                       <Users className="h-5 w-5 text-white" />
+//                     </div>
+//                     <div>
+//                       <span className="text-green-700 font-semibold text-base block">
+//                         View Adopters
+//                       </span>
+//                       <span className="text-green-600 text-sm">
+//                         Manage adoption applications
+//                       </span>
+//                     </div>
+//                   </button>
+
+//                   <button className="w-full flex items-center px-4 py-4 text-left bg-gradient-to-r from-purple-50 to-violet-50 hover:from-purple-100 hover:to-violet-100 rounded-xl transition-all duration-200 group border border-purple-100">
+//                     <div className="bg-purple-500 p-2.5 rounded-xl mr-4 group-hover:scale-105 transition-transform">
+//                       <Calendar className="h-5 w-5 text-white" />
+//                     </div>
+//                     <div>
+//                       <span className="text-purple-700 font-semibold text-base block">
+//                         Schedule Visit
+//                       </span>
+//                       <span className="text-purple-600 text-sm">
+//                         Book meet & greet sessions
+//                       </span>
+//                     </div>
+//                   </button>
+
+//                   <button className="w-full flex items-center px-4 py-4 text-left bg-gradient-to-r from-orange-50 to-amber-50 hover:from-orange-100 hover:to-amber-100 rounded-xl transition-all duration-200 group border border-orange-100">
+//                     <div className="bg-orange-500 p-2.5 rounded-xl mr-4 group-hover:scale-105 transition-transform">
+//                       <TrendingUp className="h-5 w-5 text-white" />
+//                     </div>
+//                     <div>
+//                       <span className="text-orange-700 font-semibold text-base block">
+//                         View Reports
+//                       </span>
+//                       <span className="text-orange-600 text-sm">
+//                         Analytics and insights
+//                       </span>
+//                     </div>
+//                   </button>
+//                 </div>
+//               </div>
+//             </div>
+//           </div> */}
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default PetAdoptionDashboard;
+
