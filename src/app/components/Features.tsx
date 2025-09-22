@@ -1,20 +1,9 @@
-"use client";
-import React, { useState } from "react";
+import React from "react";
 import {
   Heart,
-  Dog,
-  Cat,
-  Users,
-  TrendingUp,
-  Calendar,
-  MapPin,
-  Search,
-  Plus,
-  Eye,
-  Edit,
-  Trash2,
-  PawPrint,
   Shield,
+  Users,
+  MapPin,
   Bell,
   Camera,
   Stethoscope,
@@ -24,24 +13,7 @@ import {
   Star,
   Home,
 } from "lucide-react";
-import StatsGrid from "./components/DashboardStats";
-import AdopterStories from "./components/AdopterStories";
-import PetDetailsModal from "./components/PetDetailsModal";
 
-interface Pet {
-  id: number;
-  name: string;
-  breed: string;
-  age: string;
-  gender: string;
-  location: string;
-  status: string;
-  image: string;
-  type: string;
-  price: number;
-}
-
-// Features Component
 const PetAdoptionFeatures = () => {
   const features = [
     {
@@ -218,7 +190,7 @@ const PetAdoptionFeatures = () => {
         </div>
 
         {/* Statistics Bar */}
-        <div className="mt-8 bg-gray-50 rounded-xl p-6">
+        {/* <div className="mt-8 bg-gray-50 rounded-xl p-6">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6 text-center">
             <div>
               <div className="text-3xl font-bold text-blue-600 mb-1">
@@ -241,88 +213,10 @@ const PetAdoptionFeatures = () => {
               <div className="text-gray-600">Success Rate</div>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );
 };
 
-const PetAdoptionDashboard = () => {
-  const [activeFilter, setActiveFilter] = useState("all");
-  const [searchTerm, setSearchTerm] = useState("");
-
-  // Modal states
-  const [selectedPet, setSelectedPet] = useState<Pet | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [favorites, setFavorites] = useState<number[]>([]);
-
- 
-
-  // Handle opening modal with selected pet
-  const handleViewDetails = (pet: Pet) => {
-    setSelectedPet(pet);
-    setIsModalOpen(true);
-  };
-
-  // Handle closing modal
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-    setSelectedPet(null);
-  };
-
-  // Handle favorite toggle
-  const handleToggleFavorite = (petId: number) => {
-    setFavorites((prev) =>
-      prev.includes(petId)
-        ? prev.filter((id) => id !== petId)
-        : [...prev, petId]
-    );
-  };
-
-
-
-  return (
-    <>
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
-        {/* Background Paw Print Icons */}
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none">
-          <PawPrint className="w-96 h-96 text-orange-400/10 rotate-12" />
-        </div>
-        <div className="absolute top-1/4 right-1/4 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none">
-          <PawPrint className="w-64 h-64 text-blue-400/10 rotate-45" />
-        </div>
-        <div className="absolute bottom-1/4 left-1/4 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none">
-          <PawPrint className="w-48 h-48 text-purple-400/10 -rotate-12" />
-        </div>
-
-        <div className="max-w-9xl mx-auto px-6 py-8 relative ">
-          {/* Stats Grid */}
-          <StatsGrid />
-
-          {/* Features Section */}
-          <div className="mb-8">
-            <PetAdoptionFeatures />
-          </div>
-
-          <div className="grid grid-cols-1 xl:grid-cols-4 gap-8">             
-
-            <div className="xl:col-span-1 space-y-6">
-              <AdopterStories />
-            </div>
-          </div>
-        </div>
-
-        {/* Pet Details Modal */}
-        <PetDetailsModal
-          pet={selectedPet}
-          isOpen={isModalOpen}
-          onClose={handleCloseModal}
-          onToggleFavorite={handleToggleFavorite}
-          isFavorite={selectedPet ? favorites.includes(selectedPet.id) : false}
-        />
-      </div>
-    </>
-  );
-};
-
-export default PetAdoptionDashboard;
+export default PetAdoptionFeatures;

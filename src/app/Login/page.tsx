@@ -17,14 +17,38 @@ const {login}  = useAuth();
 const habdleSubmit = (e: { preventDefault: () => void; }) => {
           e.preventDefault();
 
+
+ if (email === "admin@com" && password === "admin123") {
+    
+  const adminUser = {
+    fullName: "Admin User",
+    phoneNumber: "1234567890",
+    email: email,
+    password: password,
+    gender: "male",
+    city: "Mumbai",
+    country: "India",
+    profilePicture: undefined,
+    isAdmin: true, // Add admin flag
+  };
+
+  login(adminUser);
+  setPassword("");
+  setEmail("")
+  router.push("/Admin")
+  return
+
+
+ }
+
         const mockUser = {
           fullName: "Vyom",
           phoneNumber: "1234567890",
           email: email,
           password: password,
           gender: "male",
-          city: "cityame ",
-          country: "Bharat",
+          city: "Mumbai",
+          country: "India",
           profilePicture: undefined,          
         };
 

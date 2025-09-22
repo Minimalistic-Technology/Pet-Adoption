@@ -4,6 +4,7 @@ import "./globals.css";
 import { AuthProvider } from "./Context/AuthContext";
 import Navbar from "./components/Navbar";
 import { usePathname } from "next/navigation";
+import { FavoritesProvider } from "./Context/FavoritesContext";
 
 
 export default function RootLayout({
@@ -20,16 +21,18 @@ export default function RootLayout({
   const pathname = usePathname();
 
   //  defines pages where navabr will not be visisble
-  const hideNavbar = ["/Login", "/Signup"];
+  const hideNavbar = ["/Login", "/Signup","/Admin"];
 
   return (
     <html lang="en">
       <body>
-        <AuthProvider>         
+        <AuthProvider>
+          <FavoritesProvider>
             {/* If pathname = "/login", then hideNavbarRoutes.includes("/login") →
           true. after ! it becomes false. */}
             {!hideNavbar.includes(pathname) && <Navbar />}
             {children}
+          </FavoritesProvider>
         </AuthProvider>
       </body>
     </html>

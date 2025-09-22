@@ -1,70 +1,66 @@
-"use client"
+"use client";
 import { createContext, ReactNode, useContext, useState } from "react";
 
 interface User {
-  fullName: String;
-  phoneNumber: String;
-  email: String;
-  password: String;
-  gender: String;
-  city: String;
-  country: String;
-  isAdmin? : boolean
+  fullName: string; // Fixed: lowercase primitive
+  phoneNumber: string;
+  email: string;
+  password: string;
+  gender: string;
+  city: string;
+  country: string;
+  isAdmin?: boolean; // Fixed: lowercase primitive
 }
 
 interface AuthContextType {
-    isAuthenticated : Boolean;
-    user: User | null;
-    login : (userData : User) => void;
-    logout : () => void
+  isAuthenticated: boolean; // Fixed: lowercase
+  user: User | null;
+  login: (userData: User) => void;
+  logout: () => void;
+  updateUser: (updatedData: User) => void; // New: For editing profile
 }
 
-// initial value undefined because it hels to idetify that the context is used within the  provider
-const  AuthContext = createContext<AuthContextType | undefined> (undefined)
-
-
+// initial value undefined because it helps to identify that the context is used within the provider
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const useAuth = () => {
-    const context  = useContext (AuthContext);
-    if(context === undefined)
-      {
-          throw new Error ("useAuth must be within an AuthProvider");
-      }
-      return context
-}
-
+  const context = useContext(AuthContext);
+  if (context === undefined) {
+    throw new Error("useAuth must be within an AuthProvider");
+  }
+  return context;
+};
 
 interface AuthProviderProps {
-    children : ReactNode
+  children: ReactNode;
 }
 
+export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
+  const [isAuthenticated, setIsAuthenticated] = useState(true);
+  const [user, setUser] = useState<User | null>(null);
 
-export const AuthProvider : React.FC<AuthProviderProps> = ({children}) => {
-     const [isAuthenticated,setIsAuthenticated] = useState(false);
-     const [user,setUser] = useState<User | null>(null);
+  const login = (userData: User) => {
+    setIsAuthenticated(true);
+    setUser(userData);
+  };
 
-     const login = (userData : User)  => {
-             setIsAuthenticated(true);
-             setUser(userData)
+  const logout = () => {
+    setIsAuthenticated(false);
+    setUser(null);
+  };
 
-     }
- 
-     const logout = () => {
-       setIsAuthenticated(false);
-       setUser(null);
-     };
+  // New: Update  user fields 
+  const updateUser = (updatedData: User) => {
+    setUser((prev) => (prev ? { ...prev, ...updatedData } : null));
+  };
 
+  const value = {
+    isAuthenticated,
+    user,
+    login,
+    logout,
+    updateUser, // Add to value
+  };
 
-     const value = {
-        isAuthenticated,
-        user,
-        login,
-        logout,
-     };
-      
-
-     return <AuthContext.Provider value={value} >
-        {children}
-     </AuthContext.Provider>
-
-}
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+};
