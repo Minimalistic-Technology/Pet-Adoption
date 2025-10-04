@@ -1,3 +1,4 @@
+// done added the otherAnimal field 
 import React from "react";
 import {
   X,
@@ -11,21 +12,9 @@ import {
   Phone,
 } from "lucide-react";
 
-interface Pet {
-  id: string;
-  name: string;
-  type: "dog" | "cat" | "bird" | "rabbit" | "other";
-  breed: string;
-  age: number;
-  gender: "male" | "female";
-  description: string;
-  adoptionFee: number;
-  image: string;
-  status: "Not Adopted" | "In Process" | "adopted";
-  location: string;
-  contactEmail: string;
-  contactPhone: string;
-}
+import { Pet } from "../utils/pet";
+
+
 
 interface PetDetailsModalProps {
   pet: Pet | null;
@@ -149,6 +138,7 @@ const PetDetailsModal: React.FC<PetDetailsModalProps> = ({
                       </p>
                     </div>
                   </div>
+
                   <div className="flex items-center space-x-3">
                     <PawPrint className="h-5 w-5 text-gray-400" />
                     <div>
@@ -158,11 +148,25 @@ const PetDetailsModal: React.FC<PetDetailsModalProps> = ({
                       </p>
                     </div>
                   </div>
+
+                  {/* ✅ Show "Other Animal" field only when type is 'other' */}
+                  {pet.type === "other" && pet.otherAnimal && (
+                    <div className="flex items-center space-x-3">
+                      <PawPrint className="h-5 w-5 text-gray-400" />
+                      <div>
+                        <p className="text-sm text-gray-500">Other Animal</p>
+                        <p className="font-medium text-gray-900 capitalize">
+                          {pet.otherAnimal}
+                        </p>
+                      </div>
+                    </div>
+                  )}
+
                   <div className="flex items-center space-x-3">
-                    <PawPrint className="h-5 w-5 text-gray-400" />                    
-                      <div >
-                        <p className="text-sm text-gray-500 mb-2">Status</p>
-                        {renderStatusBadge(pet.status)}                    
+                    <PawPrint className="h-5 w-5 text-gray-400" />
+                    <div>
+                      <p className="text-sm text-gray-500 mb-2">Status</p>
+                      {renderStatusBadge(pet.status)}
                     </div>
                   </div>
                 </div>

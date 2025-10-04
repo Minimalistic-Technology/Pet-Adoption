@@ -27,19 +27,8 @@ import {
 import StatsGrid from "./components/DashboardStats";
 import AdopterStories from "./components/AdopterStories";
 import PetDetailsModal from "./components/PetDetailsModal";
+import { Pet } from "./utils/pet";
 
-interface Pet {
-  id: number;
-  name: string;
-  breed: string;
-  age: string;
-  gender: string;
-  location: string;
-  status: string;
-  image: string;
-  type: string;
-  price: number;
-}
 
 // Features Component
 const PetAdoptionFeatures = () => {
@@ -248,8 +237,7 @@ const PetAdoptionFeatures = () => {
 };
 
 const PetAdoptionDashboard = () => {
-  const [activeFilter, setActiveFilter] = useState("all");
-  const [searchTerm, setSearchTerm] = useState("");
+  
 
   // Modal states
   const [selectedPet, setSelectedPet] = useState<Pet | null>(null);
@@ -258,11 +246,7 @@ const PetAdoptionDashboard = () => {
 
  
 
-  // Handle opening modal with selected pet
-  const handleViewDetails = (pet: Pet) => {
-    setSelectedPet(pet);
-    setIsModalOpen(true);
-  };
+
 
   // Handle closing modal
   const handleCloseModal = () => {

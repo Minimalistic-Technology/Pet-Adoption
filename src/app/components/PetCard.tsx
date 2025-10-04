@@ -1,20 +1,8 @@
+// done added the otherAnimal field
+
 import React from "react";
 import { Heart, MapPin, Calendar, Eye } from "lucide-react";
-
-interface Pet {
-  id: number;
-  name: string;
-  breed: string;
-  age: string;
-  gender: string;
-  location: string;
-  status: string;
-  image: string;
-  type: string;
-  email:string;
-  phone:string;
-  description:string;
-}
+import { Pet } from "../utils/pet";
 
 interface PetCardProps {
   pet: Pet;

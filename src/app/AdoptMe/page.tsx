@@ -1,23 +1,26 @@
+// done added the otherAnimal field
+
 "use client";
 import React, { useState } from "react";
 import { Heart, Calendar, MapPin, Search, Eye, PawPrint } from "lucide-react";
 import PetDetailsModal from "../components/PetDetailsModal"; // Import the modal
+import { Pet } from "../utils/pet";
 
-interface Pet {
-  id: number;
-  name: string;
-  breed: string;
-  age: string;
-  gender: string;
-  location: string;
-  status: string;
-  image: string;
-  type: string;
-  price: number;
-  contactEmail: string;
-  contactPhone: string;
-  description: string;
-}
+// interface Pet {
+//   id: number;
+//   name: string;
+//   breed: string;
+//   age: string;
+//   gender: string;
+//   location: string;
+//   status: string;
+//   image: string;
+//   type: string;
+//   price: number;
+//   contactEmail: string;
+//   contactPhone: string;
+//   description: string;
+// }
 
 const AdoptMe = () => {
   const [activeFilter, setActiveFilter] = useState("all");
@@ -32,13 +35,14 @@ const AdoptMe = () => {
       name: "Max",
       breed: "German Shepherd",
       age: "2 years",
-      gender: "Male",
+      gender: "male",
       location: "Bhopal",
-      status: "not adpopted yet",
+      status: "adpoted",
       image:
         "https://images.pexels.com/photos/551628/pexels-photo-551628.jpeg?auto=compress&cs=tinysrgb&w=300",
-      type: "dog",
-      price: 250,
+      type: "other",
+      otherAnimal: "other Animal",
+      adoptionFee: 250,
       contactEmail: "",
       contactPhone: "",
       description: "",
@@ -48,13 +52,13 @@ const AdoptMe = () => {
       name: "Bella",
       breed: "Siamese Cat",
       age: "1.5 years",
-      gender: "Female",
+      gender: "female",
       location: "Bhopal",
-      status: "in process",
+      status: "In Process",
       image:
         "https://images.pexels.com/photos/1276553/pexels-photo-1276553.jpeg?auto=compress&cs=tinysrgb&w=300",
       type: "cat",
-      price: 180,
+      adoptionFee: 180,
       contactEmail: "",
       contactPhone: "",
       description: "",
@@ -64,13 +68,13 @@ const AdoptMe = () => {
       name: "Charlie",
       breed: "Beagle",
       age: "3 years",
-      gender: "Male",
+      gender: "male",
       location: "Delhi",
-      status: "not adpopted yet",
+      status: "adpopted",
       image:
         "https://images.pexels.com/photos/1805164/pexels-photo-1805164.jpeg?auto=compress&cs=tinysrgb&w=300",
       type: "dog",
-      price: 300,
+      adoptionFee: 300,
       contactEmail: "",
       contactPhone: "",
       description: "",
@@ -80,13 +84,13 @@ const AdoptMe = () => {
       name: "Daisy",
       breed: "Maine Coon",
       age: "4 years",
-      gender: "Female",
+      gender: "female",
       location: "Mumbai",
-      status: "not adpopted yet",
+      status: "Not Adpopted",
       image:
         "https://images.pexels.com/photos/1643457/pexels-photo-1643457.jpeg?auto=compress&cs=tinysrgb&w=300",
       type: "cat",
-      price: 220,
+      adoptionFee: 220,
       contactEmail: "",
       contactPhone: "",
       description: "",
@@ -96,13 +100,13 @@ const AdoptMe = () => {
       name: "Rocky",
       breed: "Bulldog",
       age: "3 years",
-      gender: "Male",
+      gender: "male",
       location: "Delhi",
-      status: "in process",
+      status: "In Process",
       image:
         "https://images.pexels.com/photos/1629781/pexels-photo-1629781.jpeg?auto=compress&cs=tinysrgb&w=300",
       type: "dog",
-      price: 400,
+      adoptionFee: 400,
       contactEmail: "",
       contactPhone: "",
       description: "",
@@ -112,13 +116,13 @@ const AdoptMe = () => {
       name: "Mia",
       breed: "Russian Blue",
       age: "2 years",
-      gender: "Female",
+      gender: "female",
       location: "Mumbai",
-      status: "not adpopted yet",
+      status: "Not Adpopted",
       image:
         "https://images.pexels.com/photos/1404819/pexels-photo-1404819.jpeg?auto=compress&cs=tinysrgb&w=300",
       type: "cat",
-      price: 160,
+      adoptionFee: 160,
       contactEmail: "",
       contactPhone: "",
       description: "",
@@ -149,10 +153,9 @@ const AdoptMe = () => {
   // Filter pets based on search and active filter
   const filteredPets = availablePets.filter((pet) => {
     const matchesFilter = activeFilter === "all" || pet.type === activeFilter;
-    const matchesSearch = pet.breed
-      .toLowerCase()
-      .includes(searchTerm.toLowerCase()) ||
-          pet.name.toLowerCase().includes(searchTerm.toLowerCase()) ;
+    const matchesSearch =
+      pet.breed.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      pet.name.toLowerCase().includes(searchTerm.toLowerCase());
 
     return matchesFilter && matchesSearch;
   });
@@ -319,7 +322,7 @@ const AdoptMe = () => {
 
                     <div className="flex items-center justify-between mb-4">
                       <span className="text-2xl font-bold text-green-600">
-                        ₹{pet.price}
+                        ₹{pet.adoptionFee}
                       </span>
                     </div>
 
@@ -366,6 +369,7 @@ const AdoptMe = () => {
             ? {
                 id: selectedPet.id.toString(),
                 name: selectedPet.name,
+  otherAnimal:selectedPet.otherAnimal,
                 type: selectedPet.type as
                   | "dog"
                   | "cat"
@@ -376,7 +380,7 @@ const AdoptMe = () => {
                 age: parseInt(selectedPet.age),
                 gender: selectedPet.gender as "male" | "female",
                 description: "A lovely pet looking for a home", // You might want to add description to your Pet interface
-                adoptionFee: selectedPet.price,
+                adoptionFee: selectedPet.adoptionFee,
                 image: selectedPet.image,
                 status: selectedPet.status as
                   | "Not Adopted"

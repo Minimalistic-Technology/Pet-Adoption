@@ -1,20 +1,5 @@
 import { createContext, ReactNode, useContext, useState } from "react";
 
-// export interface Pet {
-//   id: number;
-//   name: string;
-//   breed: string;
-//   age: string;
-//   gender: string;
-//   location: string;
-//   status: string;
-//   image: string;
-//   type: string;
-// }
-
-
-
-
 interface Pet {
   id: number;
   name: string;

@@ -28,22 +28,24 @@ import { useAuth } from "../Context/AuthContext";
 import { useFavorites } from "../Context/FavoritesContext";
 import { useRouter } from "next/navigation";
 import PetCard from "../components/PetCard";
+import { Pet } from "../utils/pet";
 
-interface Pet {
-  id: number;
-  name: string; 
-  type: "dog" | "cat" | "bird" | "rabbit" | "other";
-  breed: string;
- age: string;
-  gender: "male" | "female";
-  description: string;
-  adoptionFee: number;
-  image: string;
-  status: "Not Adopted" | "In Process" | "adopted";
-  location: string;
-  contactEmail: string;
-  contactPhone: string;
-}
+// interface Pet {
+//   id: number;
+//   name: string; 
+//   type: "dog" | "cat" | "bird" | "rabbit" | "other";
+//   otherAnimal?:string;
+//   breed: string;
+//  age: string;
+//   gender: "male" | "female";
+//   description: string;
+//   adoptionFee: number;
+//   image: string;
+//   status: "Not Adopted" | "In Process" | "adopted";
+//   location: string;
+//   contactEmail: string;
+//   contactPhone: string;
+// }
 
 const ProfilePage = () => {
 
@@ -61,7 +63,8 @@ const ProfilePage = () => {
     {
       id: 1,
       name: "Buddy",
-      type: "dog",
+      type: "other",
+      otherAnimal:"Hello-other-anikmal",
       breed: "Golden Retriever",
       age: "3",
       gender: "male",
@@ -87,6 +90,7 @@ const ProfilePage = () => {
     name: "",
     type: "dog",
     breed: "",
+    otherAnimal:"",
     age: "1",
     gender: "male",
     description: "",
@@ -102,7 +106,8 @@ const ProfilePage = () => {
   const resetForm = () => {
     setFormData({
       name: "",
-      type: "dog",
+      type: "other",
+      otherAnimal:"",
       breed: "",
       age: "1",
       gender: "male",
@@ -143,10 +148,6 @@ const ProfilePage = () => {
       setCurrentView("profile");
     }
   };
-
-
-
- 
 
   const router = useRouter();
 
@@ -247,6 +248,24 @@ const ProfilePage = () => {
             <option value="other">Other</option>
           </select>
         </div>
+
+        {/* 👇 Show this only if "Other" is selected */}
+        {formData.type === "other" && (
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Other Animal Name
+            </label>
+            <input
+              type="text"
+              value={formData.otherAnimal}
+              onChange={(e) =>
+                setFormData({ ...formData, otherAnimal: e.target.value })
+              }
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              placeholder="Enter animal name"
+            />
+          </div>
+        )}
 
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
